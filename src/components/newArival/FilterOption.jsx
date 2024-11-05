@@ -1,15 +1,27 @@
-// import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useProductContext } from "../context/Context";
 import { useFilterCategoryContext } from "../context/FilterCategoryContext";
 
 export default function FilterOption() {
   const { checkValue, setCheckValue, setCategoryValue } =
     useFilterCategoryContext();
-  // const { setCategoryValue } = useFilterCategoryContext();
-
+  const [saveCategory, setSaveCategory] = useState([]);
   const { arrivalData } = useProductContext();
-  const allCategories = [...new Set(arrivalData.map((data) => data.category))];
 
+  // let allCategories;
+  // allCategories = [...new Set(arrivalData.map((data) => data.category))];
+  // useEffect(() => {
+  //   setSaveCategory(allCategories);
+  // }, []);
+  let allCategoriesRef = useRef(null);
+  useEffect(() => {
+    if (allCategoriesRef.current === null) {
+      allCategoriesRef.current = [
+        ...new Set(arrivalData.map((data) => data.category)),
+      ];
+      setSaveCategory(allCategoriesRef.current);
+    }
+  }, [arrivalData]);
   return (
     <div
       className="absolute z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
@@ -20,7 +32,7 @@ export default function FilterOption() {
       id="filter-dropdown"
     >
       <div className="py-1" role="none">
-        {allCategories.map((category) => (
+        {saveCategory.map((category) => (
           <label
             key={category}
             className="inline-flex w-full cursor-pointer hover:bg-gray-50 items-center px-4 py-2 text-sm text-gray-700"

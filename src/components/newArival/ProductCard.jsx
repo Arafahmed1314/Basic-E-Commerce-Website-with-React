@@ -40,7 +40,12 @@ export default function ProductCard({ product }) {
           <div>
             <CartIcon />
           </div>
-          <p>{togglebtn ? "Add To Cart" : "Remove From Cart"}</p>
+          <p
+            className={`px-4 py-2 rounded-md font-semibold text-center
+  ${togglebtn || "bg-red-500 text-white"}`}
+          >
+            {togglebtn ? "Add To Cart" : "Remove From Cart"}
+          </p>
         </div>
       </div>
     </div>

@@ -9,8 +9,8 @@ const Providers = ({ children }) => {
   const [categoryValue, setCategoryValue] = useState("");
   const [checkValue, setCheckValue] = useState("");
   const [searchValue, setSearchValue] = useState("");
-  const [cartValue, setCartValue] = useState([]);
   const { arrivalData, loading } = useArrivalProduct(categoryValue);
+  const [cartValue, setCartValue] = useState([]);
   return (
     <ProductContext.Provider
       value={{ arrivalData, loading, sortOption, setSortOption }}
